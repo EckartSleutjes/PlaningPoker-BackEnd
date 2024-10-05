@@ -2,6 +2,7 @@
 {
     public class StoriePlayer : Entity
     {
+        private StoriePlayer() { }
         public StoriePlayer(Guid playerId, Guid storieId, Guid createdBy)
         {
             PlayerId = playerId;

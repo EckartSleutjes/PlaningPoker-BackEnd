@@ -2,6 +2,7 @@
 {
     public class PokerItem : Entity
     {
+        private PokerItem() { }
         public PokerItem(string description, Guid pokerId, Guid createdBy)
         {
             Description = description;

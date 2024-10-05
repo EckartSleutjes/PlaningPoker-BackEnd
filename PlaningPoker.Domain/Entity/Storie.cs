@@ -2,6 +2,7 @@
 {
     public class Storie : Entity
     {
+        private Storie() { }
         public Storie(Guid roomId, Guid createdBy)
         {
             Played = false;

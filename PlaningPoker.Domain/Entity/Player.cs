@@ -4,6 +4,7 @@ namespace PlaningPoker.Domain.Entity
 {
     public class Player : Entity
     {
+        private Player () { }
         public Player(string name, string email, Guid roomId, Guid createdBy)
         {
             Name = name;
