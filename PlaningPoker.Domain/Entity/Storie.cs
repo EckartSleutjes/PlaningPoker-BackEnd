@@ -2,6 +2,7 @@
 {
     public class Storie : Entity
     {
+        private Storie() { }
         public Storie(Guid roomId, Guid createdBy)
         {
             Played = false;
@@ -9,8 +10,8 @@
             CreatedBy = createdBy;
         }
 
-        public bool Played { get; set; }
-        public Guid RoomId { get; set; }
-        public Room Room { get; set; }
+        public bool Played { get; private set; }
+        public Guid RoomId { get; private set; }
+        public Room Room { get; private set; }
     }
 }

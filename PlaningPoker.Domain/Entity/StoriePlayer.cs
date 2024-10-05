@@ -2,6 +2,7 @@
 {
     public class StoriePlayer : Entity
     {
+        private StoriePlayer() { }
         public StoriePlayer(Guid playerId, Guid storieId, Guid createdBy)
         {
             PlayerId = playerId;
@@ -10,16 +11,16 @@
             Flip = false;
         }
 
-        public Guid PlayerId { get; set; }
-        public Player Player { get; set; }
+        public Guid PlayerId { get; private set; }
+        public Player Player { get; private set; }
 
-        public Guid StorieId { get; set; }
-        public Storie Storie { get; set; }
+        public Guid StorieId { get; private set; }
+        public Storie Storie { get; private set; }
 
-        public Guid? PokerItemId { get; set; }
-        public PokerItem PokerItem { get; set; }
+        public Guid? PokerItemId { get; private set; }
+        public PokerItem PokerItem { get; private set; }
 
-        public bool Flip { get; set; }
+        public bool Flip { get; private set; }
 
         public void SetPokerItemId(Guid pokerItemId)
         {

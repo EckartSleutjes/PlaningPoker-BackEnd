@@ -1,19 +1,23 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace PlaningPoker.Domain.Entity
+﻿namespace PlaningPoker.Domain.Entity
 {
     public class Player : Entity
     {
-        public Player(string name, string email, Guid roomId, Guid createdBy)
+        private Player() { }
+        public Player(string name, string email, Guid? roomId = null, Guid? createdBy = null)
         {
             Name = name;
             Email = email;
-            RoomId = roomId;
+            RoomId = roomId ?? Guid.Empty;
             CreatedBy = createdBy;
         }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public Guid RoomId { get; set; }
-        public Room Room { get; set; }
+        public string Name { get; private set; }
+        public string Email { get; private set; }
+        public Guid RoomId { get; private set; }
+        public Room Room { get; private set; }
+
+        public void SetRoomId (Guid roomId)
+        {
+            RoomId = roomId;
+        }
     }
 }

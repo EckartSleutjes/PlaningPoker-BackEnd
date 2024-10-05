@@ -2,12 +2,14 @@
 {
     public class Poker : Entity
     {
+        private Poker() { }
+
         public Poker(string description, Guid createdBy)
         {
             Description = description;
             CreatedBy = createdBy;
         }
 
-        public string Description { get; set; }
+        public string Description { get; private set; }
     }
 }

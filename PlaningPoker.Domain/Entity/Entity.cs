@@ -5,8 +5,8 @@ namespace PlaningPoker.Domain.Entity
     public class Entity
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public Guid? CreatedBy { get; set; }
+        public Guid Id { get; private set; } = Guid.NewGuid();
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+        public Guid? CreatedBy { get; protected set; }
     }
 }
