@@ -10,9 +10,9 @@
             CreatedBy = createdBy;
         }
 
-        public string Description { get; set; }
+        public string Description { get; private set; }
 
-        public Guid PokerId { get; set; }
-        public Poker Poker { get; set; }
+        public Guid PokerId { get; private set; }
+        public Poker Poker { get; private set; }
     }
 }

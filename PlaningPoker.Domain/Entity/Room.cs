@@ -13,9 +13,9 @@ namespace PlaningPoker.Domain.Entity
             Password = password;
             CreatedBy = createdBy;
         }
-        public string Tag { get; set; }
-        public string Name { get; set; }
-        public string? Description { get; set; }
-        public string? Password { get; set; }
+        public string Tag { get; private set; }
+        public string Name { get; private set; }
+        public string? Description { get; private set; }
+        public string? Password { get; private set; }
     }
 }

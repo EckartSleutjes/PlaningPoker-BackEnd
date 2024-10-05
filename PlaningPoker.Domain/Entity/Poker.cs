@@ -10,6 +10,6 @@
             CreatedBy = createdBy;
         }
 
-        public string Description { get; set; }
+        public string Description { get; private set; }
     }
 }

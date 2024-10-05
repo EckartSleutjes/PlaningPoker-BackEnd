@@ -1,6 +1,7 @@
 ﻿using PlaningPoker.Application.Contract;
 using PlaningPoker.Domain.Dto;
 using PlaningPoker.Domain.Entity;
+using System.Formats.Asn1;
 
 namespace PlaningPoker.Application.Service
 {
@@ -23,6 +24,11 @@ namespace PlaningPoker.Application.Service
         public async Task<Room?> GetRoomById(Guid roomId)
         {
             return await _roomRepository.GetRoomById(roomId);
+        }
+
+        public async Task<Room?> GetRoomByTag(string tag)
+        {
+            return await _roomRepository.GetRoomByTag(tag);
         }
     }
 }

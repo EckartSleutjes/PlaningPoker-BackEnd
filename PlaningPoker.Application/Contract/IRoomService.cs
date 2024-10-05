@@ -6,6 +6,7 @@ namespace PlaningPoker.Application.Contract
     public interface IRoomService
     {
         Task<Room?> GetRoomById (Guid roomId);
+        Task<Room?> GetRoomByTag (string tag);
         Task<bool> CreateRoom (RoomDto room);
     }
 }
