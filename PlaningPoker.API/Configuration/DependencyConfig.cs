@@ -12,6 +12,8 @@ namespace PlaningPoker.API.Configuration
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IStorieRepository, StorieRepository>();
+            services.AddScoped<IStorieService, StorieService>();
         }
     }
 }
