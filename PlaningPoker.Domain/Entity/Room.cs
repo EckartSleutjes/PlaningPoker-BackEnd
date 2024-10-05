@@ -1,4 +1,6 @@
-﻿namespace PlaningPoker.Domain.Entity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PlaningPoker.Domain.Entity
 {
     public class Room : Entity
     {
