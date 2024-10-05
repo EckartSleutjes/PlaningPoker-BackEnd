@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PlaningPoker.Domain.Entity;
+using System.Data;
 
 namespace PlaningPoker.Infraestructure
 {
@@ -6,6 +8,6 @@ namespace PlaningPoker.Infraestructure
     {
         public PlaningPokerContext(DbContextOptions<PlaningPokerContext> options) : base(options) { }
 
-
+        public DbSet<Room> Room { get; set; }
     }
 }
