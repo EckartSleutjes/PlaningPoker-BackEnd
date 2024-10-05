@@ -17,7 +17,7 @@
         public Storie Storie { get; set; }
 
         public Guid? PokerItemId { get; set; }
-        //public PokerItem PokerItem { get; set; }
+        public PokerItem PokerItem { get; set; }
 
         public bool Flip { get; set; }
 
