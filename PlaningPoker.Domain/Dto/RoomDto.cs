@@ -14,8 +14,10 @@ namespace PlaningPoker.Domain.Dto
         public Guid UserId { get; set; }
         public string? Description { get; set; }
         public string? Password { get; set; }
+        public Poker? Poker { get; set; }
+        public List<PokerItem>? PokerItems { get; set; }
 
-        public static implicit operator Room (RoomDto dto)
+        public static explicit operator Room (RoomDto dto)
         {
             return new Room(dto.Tag, dto.Name, dto.UserId, dto.Description, dto.Password);
         }

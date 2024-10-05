@@ -1,19 +1,31 @@
 ﻿using PlaningPoker.Application.Contract;
 using PlaningPoker.Domain.Dto;
 using PlaningPoker.Domain.Entity;
-using System.Formats.Asn1;
 
 namespace PlaningPoker.Application.Service
 {
-    public class RoomService (IRoomRepository _roomRepository) : IRoomService
+    public class RoomService (IRoomRepository _roomRepository, IPokerService _pokerService) : IRoomService
     {
         public async Task<bool> CreateRoom(RoomDto room)
         {
             try
             {
-                await _roomRepository.CreateRoom((Room)room);
+                var roomModel = (Room)room;
+                if (room.Poker is null)
+                {
+                    if (room.PokerItems is null)
+                        throw new Exception("Poker items empty");
+                    roomModel.SetPokerItems(room.PokerItems);
+                }
+                else
+                {
+                    var pokerItems = await _pokerService.GetPokerItemsByPokerId(room.Poker.Id);
+                    roomModel.SetPokerItems(pokerItems);
+                }
+
+                await _roomRepository.CreateRoom(roomModel);
                 return true;
-            }
+            }           
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in CreateRoom => {ex}");

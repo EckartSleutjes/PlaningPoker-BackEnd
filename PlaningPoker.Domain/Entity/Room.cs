@@ -1,6 +1,4 @@
-﻿using PlaningPoker.Domain.Dto;
-
-namespace PlaningPoker.Domain.Entity
+﻿namespace PlaningPoker.Domain.Entity
 {
     public class Room : Entity
     {
@@ -17,5 +15,11 @@ namespace PlaningPoker.Domain.Entity
         public string Name { get; private set; }
         public string? Description { get; private set; }
         public string? Password { get; private set; }
+        public string PokerItems { get; private set; }
+
+        public void SetPokerItems(List<PokerItem> pokerItems)
+        {
+            PokerItems = string.Join(',', pokerItems.Select(t => t.Description));
+        }
     }
 }
