@@ -14,6 +14,10 @@ namespace PlaningPoker.API.Configuration
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IStorieRepository, StorieRepository>();
             services.AddScoped<IStorieService, StorieService>();
+            services.AddScoped<IPlayerService, PlayerService>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<IPokerService, PokerService>();
+            services.AddScoped<IPokerRepository, PokerRepository>();
         }
     }
 }
