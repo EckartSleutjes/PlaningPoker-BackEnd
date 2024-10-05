@@ -1,4 +1,6 @@
-﻿namespace PlaningPoker.Domain.Entity
+﻿using PlaningPoker.Domain.Dto;
+
+namespace PlaningPoker.Domain.Entity
 {
     public class Room : Entity
     {
