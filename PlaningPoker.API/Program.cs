@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using PlaningPoker.API.Configuration;
 using PlaningPoker.Infraestructure;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.DependencyRegister();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PlaningPokerContext>(options =>

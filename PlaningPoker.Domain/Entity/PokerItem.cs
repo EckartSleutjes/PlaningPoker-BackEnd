@@ -1,4 +1,6 @@
-﻿namespace PlaningPoker.Domain.Entity
+﻿using System.Text.Json.Serialization;
+
+namespace PlaningPoker.Domain.Entity
 {
     public class PokerItem : Entity
     {
@@ -11,8 +13,8 @@
         }
 
         public string Description { get; private set; }
-
         public Guid PokerId { get; private set; }
+        [JsonIgnore]
         public Poker Poker { get; private set; }
     }
 }

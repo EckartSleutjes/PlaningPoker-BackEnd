@@ -1,13 +1,4 @@
 services:
-  api: # API
-    build: .
-    hostname: api
-    depends_on:
-      - db
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "7002:8080"
   db: # Banco de dados
     hostname: db
     image: postgres

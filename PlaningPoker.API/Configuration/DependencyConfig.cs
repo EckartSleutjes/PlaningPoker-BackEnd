@@ -6,7 +6,7 @@ namespace PlaningPoker.API.Configuration
 {
     public static class DependencyConfig
     {
-        public static void DependencyRegister(IServiceCollection services)
+        public static void DependencyRegister(this IServiceCollection services)
         {
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IRoomRepository, RoomRepository>();
