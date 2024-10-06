@@ -11,7 +11,7 @@ namespace PlaningPoker.Application.Service
             try
             {
                 var roomModel = (Room)room;
-                if (room.Poker is null)
+                if (room.PokerId is null)
                 {
                     if (room.PokerItems is null)
                         throw new Exception("Poker items empty");
@@ -19,8 +19,8 @@ namespace PlaningPoker.Application.Service
                 }
                 else
                 {
-                    var pokerItems = await _pokerService.GetPokerItemsByPokerId(room.Poker.Id);
-                    roomModel.SetPokerItems(pokerItems);
+                    var pokerItems = await _pokerService.GetPokerItemsByPokerId((Guid)room.PokerId);
+                    roomModel.SetPokerItems(pokerItems.Select(t => t.Description).ToList());
                 }
 
                 await _roomRepository.CreateRoom(roomModel);

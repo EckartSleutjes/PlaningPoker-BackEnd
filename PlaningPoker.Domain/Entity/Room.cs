@@ -17,9 +17,9 @@
         public string? Password { get; private set; }
         public string PokerItems { get; private set; }
 
-        public void SetPokerItems(List<PokerItem> pokerItems)
+        public void SetPokerItems(List<string> pokerItems)
         {
-            PokerItems = string.Join(',', pokerItems.Select(t => t.Description));
+            PokerItems = string.Join(',', pokerItems);
         }
     }
 }

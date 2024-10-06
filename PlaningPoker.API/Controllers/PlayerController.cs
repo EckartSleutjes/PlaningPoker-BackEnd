@@ -29,7 +29,7 @@ namespace PlaningPoker.API.Controllers
         public async Task<IActionResult> GetPlayersByRoomId(Guid roomId)
         {
             var response = await _playerService.GetPlayersByRoomId(roomId);
-            if (response is null || response.Count == 0) return BadRequest("Error in get players in room.");
+            if (response is null || response.Count == 0) return NotFound("None players in room.");
             return Ok(response);
         }
     }
