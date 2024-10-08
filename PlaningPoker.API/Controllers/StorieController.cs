@@ -17,12 +17,12 @@ namespace PlaningPoker.API.Controllers
         //    return Ok(response);
         //}
 
-        //[HttpPost]
-        //public async Task<IActionResult> CreateRoom(RoomDto dto)
-        //{
-        //    var response = await _roomService.CreateRoom(dto);
-        //    if (!response) return BadRequest("Error in create room.");
-        //    return Created("", response);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateStorie(StorieDto dto)
+        {
+            var response = await _storieService.CreateStorie(dto);
+            if (!response) return BadRequest("Error in create storie.");
+            return Created("", response);
+        }
     }
 }

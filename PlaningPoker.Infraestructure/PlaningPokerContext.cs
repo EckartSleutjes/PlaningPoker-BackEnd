@@ -9,5 +9,6 @@ namespace PlaningPoker.Infraestructure
         public DbSet<Player> Player { get; set; }
         public DbSet<Poker> Poker { get; set; }
         public DbSet<PokerItem> PokerItem { get; set; }
+        public DbSet<Storie> Storie { get; set; }
     }
 }
