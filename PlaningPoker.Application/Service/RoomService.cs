@@ -38,6 +38,11 @@ namespace PlaningPoker.Application.Service
             return await _roomRepository.GetRoomById(roomId);
         }
 
+        public async Task<Room?> GetRoomByPlayerId(Guid playerId)
+        {
+            return await _roomRepository.GetRoomByPlayerId(playerId);
+        }
+
         public async Task<Room?> GetRoomByTag(string tag)
         {
             return await _roomRepository.GetRoomByTag(tag);

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PlaningPoker.Infraestructure;
@@ -11,9 +12,11 @@ using PlaningPoker.Infraestructure;
 namespace PlaningPoker.Infraestructure.Migrations
 {
     [DbContext(typeof(PlaningPokerContext))]
-    partial class PlaningPokerContextModelSnapshot : ModelSnapshot
+    [Migration("20241008015954_AlterEntities")]
+    partial class AlterEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

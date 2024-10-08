@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PlaningPoker.Infraestructure;
@@ -11,9 +12,11 @@ using PlaningPoker.Infraestructure;
 namespace PlaningPoker.Infraestructure.Migrations
 {
     [DbContext(typeof(PlaningPokerContext))]
-    partial class PlaningPokerContextModelSnapshot : ModelSnapshot
+    [Migration("20241008015644_AddEntities")]
+    partial class AddEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,9 +184,8 @@ namespace PlaningPoker.Infraestructure.Migrations
                     b.Property<Guid>("PlayerId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("PokerItem")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid?>("PokerItemId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("StorieId")
                         .HasColumnType("uuid");
@@ -191,6 +193,8 @@ namespace PlaningPoker.Infraestructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PlayerId");
+
+                    b.HasIndex("PokerItemId");
 
                     b.HasIndex("StorieId");
 
@@ -238,6 +242,10 @@ namespace PlaningPoker.Infraestructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PlaningPoker.Domain.Entity.PokerItem", "PokerItem")
+                        .WithMany()
+                        .HasForeignKey("PokerItemId");
+
                     b.HasOne("PlaningPoker.Domain.Entity.Storie", "Storie")
                         .WithMany()
                         .HasForeignKey("StorieId")
@@ -245,6 +253,8 @@ namespace PlaningPoker.Infraestructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Player");
+
+                    b.Navigation("PokerItem");
 
                     b.Navigation("Storie");
                 });

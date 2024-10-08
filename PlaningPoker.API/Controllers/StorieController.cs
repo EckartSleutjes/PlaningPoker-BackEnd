@@ -8,15 +8,6 @@ namespace PlaningPoker.API.Controllers
     [Route("[controller]")]
     public class StorieController(IStorieService _storieService) : ControllerBase
     {
-
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetStorieById(Guid id)
-        //{
-        //    var response = await _storieService.GetRoomById(id);
-        //    if (response is null) return BadRequest("Error in get storie.");
-        //    return Ok(response);
-        //}
-
         [HttpPost]
         public async Task<IActionResult> CreateStorie(StorieDto dto)
         {

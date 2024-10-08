@@ -5,11 +5,12 @@ namespace PlaningPoker.Domain.Entity
     public class StoriePlayer : Entity
     {
         private StoriePlayer() { }
-        public StoriePlayer(Guid playerId, Guid storieId, Guid createdBy)
+        public StoriePlayer(Guid playerId, Guid storieId, string pokerItem, Guid? createdBy = null)
         {
             PlayerId = playerId;
             StorieId = storieId;
-            CreatedBy = createdBy;
+            PokerItem = pokerItem;
+            CreatedBy = createdBy ?? playerId;
             Flip = false;
         }
         public Guid PlayerId { get; private set; }
@@ -18,15 +19,7 @@ namespace PlaningPoker.Domain.Entity
         public Guid StorieId { get; private set; }
         [JsonIgnore]
         public Storie Storie { get; private set; }
-        public Guid? PokerItemId { get; private set; }
-        [JsonIgnore]
-        public PokerItem PokerItem { get; private set; }
-
+        public string PokerItem { get; private set; }
         public bool Flip { get; private set; }
-
-        public void SetPokerItemId(Guid pokerItemId)
-        {
-            PokerItemId = pokerItemId;
-        }
     }
 }

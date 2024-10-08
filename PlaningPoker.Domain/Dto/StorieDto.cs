@@ -7,8 +7,8 @@ namespace PlaningPoker.Domain.Dto
     {
         [Required]
         [MinLength(1)]
-        [MaxLength(1)]
-        public string Description { get; set; }
+        [MaxLength(200)]
+        public string Description { get; set; } = null!;
         [Required]
         public Guid RoomId { get; set; }
 
