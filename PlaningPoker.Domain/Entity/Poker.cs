@@ -11,5 +11,11 @@
         }
 
         public string Description { get; private set; }
+        public ICollection<PokerItem> PokerItems { get; private set; }
+
+        public void SetPokerItem(List<PokerItem> pokerItems)
+        {
+            PokerItems = pokerItems;
+        }
     }
 }
