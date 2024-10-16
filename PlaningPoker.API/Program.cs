@@ -15,9 +15,9 @@ app.UseSwaggerUI();
 
 var serviceScope = app.Services.CreateScope();
 var context = serviceScope.ServiceProvider.GetRequiredService<PlaningPokerContext>();
-context.Database.Migrate();
+await context.Database.MigrateAsync();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-app.Run();
+await app.RunAsync();

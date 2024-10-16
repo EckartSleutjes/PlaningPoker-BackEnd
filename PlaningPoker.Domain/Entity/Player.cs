@@ -20,7 +20,7 @@ namespace PlaningPoker.Domain.Entity
 
         public void SetRoomId (Guid roomId)
         {
-            RoomId = roomId;
+            RoomId = roomId;    
         }
     }
 }
