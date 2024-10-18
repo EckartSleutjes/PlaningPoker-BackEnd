@@ -1,4 +1,5 @@
-﻿using PlaningPoker.Application.Contract;
+﻿using Microsoft.EntityFrameworkCore;
+using PlaningPoker.Application.Contract;
 using PlaningPoker.Domain.Entity;
 
 namespace PlaningPoker.Infraestructure.Repository
@@ -9,6 +10,12 @@ namespace PlaningPoker.Infraestructure.Repository
         {
             await _db.Storie.AddAsync(storie);
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<List<Storie>> GetStoriesByRoomId(Guid roomId, bool? played = null)
+        {
+            var dataSet = _db.Storie.Where(t => t.RoomId == roomId && (played == null || t.Played == played));
+            return await dataSet.ToListAsync();
         }
     }
 }

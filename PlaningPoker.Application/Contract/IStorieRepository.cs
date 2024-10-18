@@ -5,5 +5,6 @@ namespace PlaningPoker.Application.Contract
     public interface IStorieRepository
     {
         Task CreateStorie(Storie storie);
+        Task<List<Storie>> GetStoriesByRoomId(Guid roomId, bool? played = null);
     }
 }

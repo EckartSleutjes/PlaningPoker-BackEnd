@@ -10,6 +10,11 @@ namespace PlaningPoker.Application.Service
         {
             try
             {
+                if (await RoomHasStorieNotPlayed(storie.RoomId))
+                {
+                    Console.WriteLine($"Error in CreateStorie => RoomHasStorieNotPlayed");
+                    return false;
+                }                    
                 await _storieRepository.CreateStorie((Storie) storie);
                 return true;
             }
@@ -18,6 +23,16 @@ namespace PlaningPoker.Application.Service
                 Console.WriteLine($"Error in CreateStorie => {ex}");
                 return false;
             }
+        }
+        public async Task<List<Storie>> GetStoriesByRoomId(Guid roomId, bool? played = null)
+        {
+            return await _storieRepository.GetStoriesByRoomId(roomId, played);
+        }
+
+        private async Task<bool> RoomHasStorieNotPlayed(Guid roomId)
+        {
+            var storiesNotPlayed = await GetStoriesByRoomId(roomId, false);
+            return storiesNotPlayed.Count > 0;
         }
     }
 }

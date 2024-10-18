@@ -6,7 +6,7 @@ namespace PlaningPoker.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RoomController(IRoomService _roomService) : ControllerBase
+    public class RoomController(IRoomService _roomService, IStorieService _storieService) : ControllerBase
     {
 
         [HttpGet("{id}")]
@@ -23,6 +23,12 @@ namespace PlaningPoker.API.Controllers
             var response = await _roomService.CreateRoom(dto);
             if (!response) return BadRequest("Error in create room.");
             return Created("", response);
+        }
+        [HttpGet("{id}/stories")]
+        public async Task<IActionResult> GetStoriesByRoomId(Guid id, [FromQuery] bool? played = null)
+        {
+            var response = await _storieService.GetStoriesByRoomId(id, played);
+            return Ok(response);
         }
     }
 }
