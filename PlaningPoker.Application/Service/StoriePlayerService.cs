@@ -22,11 +22,31 @@ namespace PlaningPoker.Application.Service
                     return false;
                 }
                 await _storiePlayerRepository.CreateStoriePlayer((StoriePlayer)storiePlayerDto);
+
                 return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in CreateStoriePlayer => {ex}");
+                return false;
+            }
+        }
+
+        public async Task<List<StoriePlayer>> GetStoriePlayersByStorie(Guid storieId)
+        {
+            return await _storiePlayerRepository.GetStoriePlayersByStorie(storieId);
+        }
+
+        public async Task<bool> FlipCardInStorie(Guid storiePlayerId)
+        {
+            try
+            {
+                await _storiePlayerRepository.FlipCardInStorie(storiePlayerId);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error in FlipCardInStorie => {ex}");
                 return false;
             }
         }

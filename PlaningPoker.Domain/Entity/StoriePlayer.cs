@@ -20,6 +20,6 @@ namespace PlaningPoker.Domain.Entity
         [JsonIgnore]
         public Storie Storie { get; private set; }
         public string PokerItem { get; private set; }
-        public bool Flip { get; private set; }
+        public bool Flip { get; set; }
     }
 }
