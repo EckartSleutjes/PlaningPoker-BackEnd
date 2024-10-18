@@ -32,7 +32,6 @@ namespace PlaningPoker.API.Hubs
         public async Task FlipCardInStorie(Guid storiePlayerId)
         {
             await _storiePlayerService.FlipCardInStorie(storiePlayerId);
-            //await EmitCardUpdated(dto.StorieId);
         }
     }
     public interface IRoomClient
