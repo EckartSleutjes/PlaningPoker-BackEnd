@@ -6,7 +6,7 @@ namespace PlaningPoker.Application.Contract
     public interface IPlayerService
     {
         Task<Player?> GetPlayerById (Guid playerId);
-        Task<List<Player>?> GetPlayersByRoomId (Guid roomId);
+        IEnumerable<PlayerListDto> GetPlayersByRoomId(Guid roomId);
         Task<bool> CreatePlayer (PlayerDto player);
     }
 }

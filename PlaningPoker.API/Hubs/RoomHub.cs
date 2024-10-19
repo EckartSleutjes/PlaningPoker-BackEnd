@@ -2,11 +2,10 @@
 using Microsoft.AspNetCore.SignalR;
 using PlaningPoker.Application.Contract;
 using PlaningPoker.Domain.Dto;
-using PlaningPoker.Domain.Entity;
 
 namespace PlaningPoker.API.Hubs
 {
-    public class RoomHub(IStoriePlayerService _storiePlayerService) : Hub<IRoomClient>
+    public class RoomHub(IStoriePlayerService _storiePlayerService, IStorieService _storieService, IPlayerService _playerService) : Hub<IRoomClient>
     {
         public override async Task OnConnectedAsync()
         {
@@ -21,23 +20,26 @@ namespace PlaningPoker.API.Hubs
         }
         public async Task EmitCardUpdated(Guid storieId)
         {
-            var cards = await _storiePlayerService.GetStoriePlayersByStorie(storieId);
-            await Clients.All.PendingCardsUpdated(cards);
+            var storie = await _storieService.GetStorieById(storieId);
+            if (storie == null)
+                return;
+            var players = _playerService.GetPlayersByRoomId(storie.RoomId);
+            await Clients.All.PendingCardsUpdated(players);
         }
         public async Task CreateStoriePlayer(StoriePlayerDto dto)
         {
             await _storiePlayerService.CreateStoriePlayer(dto);
             await EmitCardUpdated(dto.StorieId);
         }
-        public async Task FlipCardInStorie(Guid storiePlayerId)
-        {
-            await _storiePlayerService.FlipCardInStorie(storiePlayerId);
-            //await EmitCardUpdated(dto.StorieId);
-        }
+        //public async Task FlipCardInStorie(Guid storiePlayerId)
+        //{
+        //    await _storiePlayerService.FlipCardInStorie(storiePlayerId);
+        //    //await EmitCardUpdated(dto.StorieId);
+        //}
     }
     public interface IRoomClient
     {
         [AllowAnonymous]
-        Task PendingCardsUpdated(List<StoriePlayer> cards);
+        Task PendingCardsUpdated(IEnumerable<PlayerListDto> cards);
     }
 }

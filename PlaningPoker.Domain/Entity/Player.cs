@@ -17,6 +17,7 @@ namespace PlaningPoker.Domain.Entity
         public Guid RoomId { get; private set; }
         [JsonIgnore]
         public Room Room { get; private set; }
+        public ICollection<StoriePlayer> StoriePlayers { get; private set; }
 
         public void SetRoomId (Guid roomId)
         {

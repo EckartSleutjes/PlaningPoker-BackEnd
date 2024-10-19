@@ -1,6 +1,7 @@
 ﻿using PlaningPoker.Application.Contract;
 using PlaningPoker.Domain.Dto;
 using PlaningPoker.Domain.Entity;
+using System.Numerics;
 
 namespace PlaningPoker.Application.Service
 {
@@ -24,6 +25,12 @@ namespace PlaningPoker.Application.Service
                 return false;
             }
         }
+
+        public async Task<Storie?> GetStorieById(Guid storieId)
+        {
+            return await _storieRepository.GetStorieById(storieId);
+        }
+
         public async Task<List<Storie>> GetStoriesByRoomId(Guid roomId, bool? played = null)
         {
             return await _storieRepository.GetStoriesByRoomId(roomId, played);

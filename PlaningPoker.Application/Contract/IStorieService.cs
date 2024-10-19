@@ -7,5 +7,6 @@ namespace PlaningPoker.Application.Contract
     {
         Task<bool> CreateStorie(StorieDto storie);
         Task<List<Storie>> GetStoriesByRoomId(Guid roomId, bool? played = null);
+        Task<Storie?> GetStorieById(Guid storieId);
     }
 }

@@ -19,7 +19,7 @@ namespace PlaningPoker.Infraestructure.Repository
 
         public async Task<List<Player>?> GetPlayersByRoomId(Guid roomId)
         {
-            return await _db.Player.Where(t => t.RoomId == roomId).ToListAsync();
+            return await _db.Player.Include(t => t.StoriePlayers).ThenInclude(t => t.Storie).Where(t => t.RoomId == roomId).ToListAsync();
         }
     }
 }

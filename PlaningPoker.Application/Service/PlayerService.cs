@@ -30,9 +30,18 @@ namespace PlaningPoker.Application.Service
             return await _playerRepository.GetPlayerById(playerId);
         }
 
-        public async Task<List<Player>?> GetPlayersByRoomId(Guid roomId)
+        public IEnumerable<PlayerListDto> GetPlayersByRoomId(Guid roomId)
         {
-            return await _playerRepository.GetPlayersByRoomId(roomId);
+            var players = _playerRepository.GetPlayersByRoomId(roomId).GetAwaiter().GetResult();
+            foreach (var item in players ?? [])
+            {
+                yield return new PlayerListDto
+                {
+                    Name = item.Name,
+                    PokerItemSelected = item.StoriePlayers.Where(t => !t.Storie.Played).FirstOrDefault()?.PokerItem,
+                    CurrentStoriePlayed = !string.IsNullOrWhiteSpace(item.StoriePlayers.Where(t => !t.Storie.Played).FirstOrDefault()?.PokerItem)
+                };
+            }
         }
     }
 }

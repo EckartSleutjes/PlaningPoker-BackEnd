@@ -26,9 +26,9 @@ namespace PlaningPoker.API.Controllers
         }
 
         [HttpGet("room/{roomId}")]
-        public async Task<IActionResult> GetPlayersByRoomId(Guid roomId)
+        public IActionResult GetPlayersByRoomId(Guid roomId)
         {
-            var response = await _playerService.GetPlayersByRoomId(roomId);
+            var response = _playerService.GetPlayersByRoomId(roomId).ToList();
             if (response is null || response.Count == 0) return NotFound("None players in room.");
             return Ok(response);
         }

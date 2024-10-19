@@ -17,5 +17,11 @@ namespace PlaningPoker.Infraestructure.Repository
             var dataSet = _db.Storie.Where(t => t.RoomId == roomId && (played == null || t.Played == played));
             return await dataSet.ToListAsync();
         }
+
+        public async Task<Storie?> GetStorieById(Guid storieId)
+        {
+            return await _db.Storie.FindAsync(storieId);
+        }
+
     }
 }
