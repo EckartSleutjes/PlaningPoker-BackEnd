@@ -1,22 +1,29 @@
 ﻿using PlaningPoker.Application.Contract;
 using PlaningPoker.Domain.Dto;
 using PlaningPoker.Domain.Entity;
-using System.Numerics;
 
 namespace PlaningPoker.Application.Service
 {
-    public class StorieService(IStorieRepository _storieRepository) : IStorieService
+    public class StorieService(IStorieRepository _storieRepository, IRoomService _roomService) : IStorieService
     {
         public async Task<bool> CreateStorie(StorieDto storie)
         {
             try
             {
-                if (await RoomHasStorieNotPlayed(storie.RoomId))
+                var room = await _roomService.GetRoomByTag(storie.TagRoom);
+                if (room == null)
+                {
+                    Console.WriteLine($"Error in CreateStorie => GetRoomByTag");
+                    return false;
+                }
+                if (await RoomHasStorieNotPlayed(room.Id))
                 {
                     Console.WriteLine($"Error in CreateStorie => RoomHasStorieNotPlayed");
                     return false;
-                }                    
-                await _storieRepository.CreateStorie((Storie) storie);
+                }
+                var storieModel = (Storie)storie;
+                storieModel.SetRoomId(room.Id);
+                await _storieRepository.CreateStorie(storieModel);
                 return true;
             }
             catch (Exception ex)

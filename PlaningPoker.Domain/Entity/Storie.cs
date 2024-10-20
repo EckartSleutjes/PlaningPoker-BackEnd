@@ -5,11 +5,10 @@ namespace PlaningPoker.Domain.Entity
     public class Storie : Entity
     {
         private Storie() { }
-        public Storie(string description, Guid roomId, Guid? createdBy = null)
+        public Storie(string description, Guid? createdBy = null)
         {
             Description = description;
             Played = false;
-            RoomId = roomId;
             CreatedBy = createdBy;
         }
 
@@ -18,5 +17,10 @@ namespace PlaningPoker.Domain.Entity
         public Guid RoomId { get; private set; }
         [JsonIgnore]
         public Room Room { get; private set; }
+
+        public void SetRoomId(Guid roomId)
+        {
+            RoomId = roomId;
+        }
     }
 }

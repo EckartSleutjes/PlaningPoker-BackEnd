@@ -10,11 +10,11 @@ namespace PlaningPoker.Domain.Dto
         [MaxLength(200)]
         public string Description { get; set; } = null!;
         [Required]
-        public Guid RoomId { get; set; }
+        public string TagRoom { get; set; } = string.Empty;
 
         public static explicit operator Storie(StorieDto dto)
         {
-            return new Storie(dto.Description, dto.RoomId);
+            return new Storie(dto.Description);
         }
     }
 }

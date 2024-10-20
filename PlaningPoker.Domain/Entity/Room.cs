@@ -3,9 +3,9 @@
     public class Room : Entity
     {
         private Room() { }
-        public Room(string tag, string name, Guid createdBy, string? description = null, string? password = null)
+        public Room(string name, Guid createdBy, string? description = null, string? password = null)
         {
-            Tag = tag;
+            Tag = Guid.NewGuid().ToString().Split('-')[0];
             Name = name;
             Description = description;
             Password = password;

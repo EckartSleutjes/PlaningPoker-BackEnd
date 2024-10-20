@@ -6,8 +6,6 @@ namespace PlaningPoker.Domain.Dto
     public record RoomDto
     {
         [Required]
-        public string Tag { get; set; } = null!;
-        [Required]
         [MinLength(1)]
         [MaxLength(200)]
         public string Name { get; set; } = null!;
@@ -19,7 +17,7 @@ namespace PlaningPoker.Domain.Dto
 
         public static explicit operator Room (RoomDto dto)
         {
-            return new Room(dto.Tag, dto.Name, dto.UserId, dto.Description, dto.Password);
+            return new Room(dto.Name, dto.UserId, dto.Description, dto.Password);
         }
     }
 }
