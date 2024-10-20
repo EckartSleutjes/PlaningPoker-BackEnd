@@ -6,6 +6,7 @@ namespace PlaningPoker.Application.Service
 {
     public class PlayerService(IPlayerRepository _playerRepository, IRoomService _roomService) : IPlayerService
     {
+        // TODO Create unit test for method
         public async Task<bool> CreatePlayer(PlayerDto player)
         {
             try
@@ -24,12 +25,12 @@ namespace PlaningPoker.Application.Service
                 return false;
             }
         }
-
+        // TODO Create unit test for method
         public async Task<Player?> GetPlayerById(Guid playerId)
         {
             return await _playerRepository.GetPlayerById(playerId);
         }
-
+        // TODO Create unit test for method
         public IEnumerable<PlayerListDto> GetPlayersByRoomId(Guid roomId)
         {
             var players = _playerRepository.GetPlayersByRoomId(roomId).GetAwaiter().GetResult();

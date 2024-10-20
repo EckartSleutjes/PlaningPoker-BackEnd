@@ -6,6 +6,7 @@ namespace PlaningPoker.Application.Service
 {
     public class StoriePlayerService(IStoriePlayerRepository _storiePlayerRepository, IRoomService _roomService) : IStoriePlayerService
     {
+        // TODO Create unit test for method
         public async Task<bool> CreateStoriePlayer(StoriePlayerDto storiePlayerDto)
         {
             try
@@ -31,12 +32,12 @@ namespace PlaningPoker.Application.Service
                 return false;
             }
         }
-
+        // TODO Create unit test for method
         public async Task<List<StoriePlayer>> GetStoriePlayersByStorie(Guid storieId)
         {
             return await _storiePlayerRepository.GetStoriePlayersByStorie(storieId);
         }
-
+        // TODO Create unit test for method
         public async Task<bool> FlipCardInStorie(Guid storiePlayerId)
         {
             try

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.SignalR;
 using PlaningPoker.Application.Contract;
 using PlaningPoker.Domain.Dto;
-using PlaningPoker.Domain.Entity;
 
 namespace PlaningPoker.API.Hubs
 {

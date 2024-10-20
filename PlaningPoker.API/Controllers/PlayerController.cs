@@ -8,7 +8,6 @@ namespace PlaningPoker.API.Controllers
     [Route("[controller]")]
     public class PlayerController(IPlayerService _playerService) : ControllerBase
     {
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPlayerById(Guid id)
         {

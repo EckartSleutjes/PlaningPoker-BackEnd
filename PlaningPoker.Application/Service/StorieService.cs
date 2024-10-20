@@ -6,6 +6,7 @@ namespace PlaningPoker.Application.Service
 {
     public class StorieService(IStorieRepository _storieRepository, IRoomService _roomService) : IStorieService
     {
+        // TODO Create unit test for method
         public async Task<bool> CreateStorie(StorieDto storie)
         {
             try
@@ -32,17 +33,17 @@ namespace PlaningPoker.Application.Service
                 return false;
             }
         }
-
+        // TODO Create unit test for method
         public async Task<Storie?> GetStorieById(Guid storieId)
         {
             return await _storieRepository.GetStorieById(storieId);
         }
-
+        // TODO Create unit test for method
         public async Task<List<Storie>> GetStoriesByRoomId(Guid roomId, bool? played = null)
         {
             return await _storieRepository.GetStoriesByRoomId(roomId, played);
         }
-
+        // TODO Create unit test for method
         private async Task<bool> RoomHasStorieNotPlayed(Guid roomId)
         {
             var storiesNotPlayed = await GetStoriesByRoomId(roomId, false);
