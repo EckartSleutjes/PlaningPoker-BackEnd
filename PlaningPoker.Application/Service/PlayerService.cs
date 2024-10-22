@@ -4,25 +4,25 @@ using PlaningPoker.Domain.Entity;
 
 namespace PlaningPoker.Application.Service
 {
-    public class PlayerService(IPlayerRepository _playerRepository, IRoomService _roomService) : IPlayerService
+    public class PlayerService(IPlayerRepository _playerRepository, IRoomRepository _roomRepository) : IPlayerService
     {
         // TODO Create unit test for method
-        public async Task<bool> CreatePlayer(PlayerDto player)
+        public async Task<Guid> CreatePlayer(PlayerDto player)
         {
             try
             {
-                var room = await _roomService.GetRoomByTag(player.TagRoom);
+                var room = await _roomRepository.GetRoomByTag(player.TagRoom);
                 if (room == null)
-                    return false;
+                    return Guid.Empty;
                 var playerModel = (Player)player;
                 playerModel.SetRoomId(room.Id);
                 await _playerRepository.CreatePlayer(playerModel);
-                return true;
+                return playerModel.Id;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in CreatePlayer => {ex}");
-                return false;
+                return Guid.Empty;
             }
         }
         // TODO Create unit test for method
@@ -39,6 +39,7 @@ namespace PlaningPoker.Application.Service
                 yield return new PlayerListDto
                 {
                     Name = item.Name,
+                    CurrentStorieId = item.StoriePlayers.Where(t => !t.Storie.Played).FirstOrDefault()?.StorieId,
                     PokerItemSelected = item.StoriePlayers.Where(t => !t.Storie.Played).FirstOrDefault()?.PokerItem,
                     CurrentStoriePlayed = !string.IsNullOrWhiteSpace(item.StoriePlayers.Where(t => !t.Storie.Played).FirstOrDefault()?.PokerItem)
                 };

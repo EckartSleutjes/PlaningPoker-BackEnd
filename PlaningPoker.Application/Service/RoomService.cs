@@ -4,10 +4,10 @@ using PlaningPoker.Domain.Entity;
 
 namespace PlaningPoker.Application.Service
 {
-    public class RoomService (IRoomRepository _roomRepository, IPokerService _pokerService) : IRoomService
+    public class RoomService (IRoomRepository _roomRepository, IPokerService _pokerService, IPlayerService _playerService) : IRoomService
     {
         // TODO Create unit test for method
-        public async Task<bool> CreateRoom(RoomDto room)
+        public async Task<CreateRoomResponseDto> CreateRoom(RoomDto room)
         {
             try
             {
@@ -25,12 +25,14 @@ namespace PlaningPoker.Application.Service
                 }
 
                 await _roomRepository.CreateRoom(roomModel);
-                return true;
+                //TODO Create player with user datas
+                var playerId = await _playerService.CreatePlayer(new PlayerDto { Email = "owner@gmail.com", Name = "Owner", TagRoom = roomModel.Tag });
+                return new CreateRoomResponseDto { TagRoom = roomModel.Tag, PlayerId = playerId };
             }           
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in CreateRoom => {ex}");
-                return false;
+                return new CreateRoomResponseDto { PlayerId = Guid.Empty };
             }
         }
         // TODO Create unit test for method

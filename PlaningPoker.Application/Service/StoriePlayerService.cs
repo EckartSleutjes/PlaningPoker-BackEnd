@@ -4,7 +4,7 @@ using PlaningPoker.Domain.Entity;
 
 namespace PlaningPoker.Application.Service
 {
-    public class StoriePlayerService(IStoriePlayerRepository _storiePlayerRepository, IRoomService _roomService) : IStoriePlayerService
+    public class StoriePlayerService(IStoriePlayerRepository _storiePlayerRepository, IRoomService _roomService, IPlayerService _playerService, IStorieService _storieService) : IStoriePlayerService
     {
         // TODO Create unit test for method
         public async Task<bool> CreateStoriePlayer(StoriePlayerDto storiePlayerDto)
@@ -23,7 +23,9 @@ namespace PlaningPoker.Application.Service
                     return false;
                 }
                 await _storiePlayerRepository.CreateStoriePlayer((StoriePlayer)storiePlayerDto);
-
+                var players = _playerService.GetPlayersByRoomId(room.Id);
+                if (players.All(t => t.CurrentStoriePlayed))
+                    await _storieService.PlayedStorie(storiePlayerDto.StorieId);
                 return true;
             }
             catch (Exception ex)

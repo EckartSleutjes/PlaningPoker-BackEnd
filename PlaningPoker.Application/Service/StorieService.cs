@@ -44,6 +44,11 @@ namespace PlaningPoker.Application.Service
             return await _storieRepository.GetStoriesByRoomId(roomId, played);
         }
         // TODO Create unit test for method
+        public async Task PlayedStorie(Guid storieId)
+        {
+            await _storieRepository.PlayedStorie(storieId);
+        }
+        // TODO Create unit test for method
         private async Task<bool> RoomHasStorieNotPlayed(Guid roomId)
         {
             var storiesNotPlayed = await GetStoriesByRoomId(roomId, false);

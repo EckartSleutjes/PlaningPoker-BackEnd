@@ -7,6 +7,6 @@ namespace PlaningPoker.Application.Contract
     {
         Task<Player?> GetPlayerById (Guid playerId);
         IEnumerable<PlayerListDto> GetPlayersByRoomId(Guid roomId);
-        Task<bool> CreatePlayer (PlayerDto player);
+        Task<Guid> CreatePlayer (PlayerDto player);
     }
 }

@@ -18,6 +18,11 @@ namespace PlaningPoker.Infraestructure.Repository
             return await dataSet.ToListAsync();
         }
 
+        public async Task PlayedStorie(Guid storieId)
+        {
+            await _db.Storie.Where(t => t.Id == storieId).ExecuteUpdateAsync(t => t.SetProperty(t => t.Played, true));
+        }
+
         public async Task<Storie?> GetStorieById(Guid storieId)
         {
             return await _db.Storie.FindAsync(storieId);

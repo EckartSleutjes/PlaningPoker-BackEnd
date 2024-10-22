@@ -17,11 +17,19 @@ namespace PlaningPoker.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet("tag/{tagRoom}")]
+        public async Task<IActionResult> GetRoomByTag(string tagRoom)
+        {
+            var response = await _roomService.GetRoomByTag(tagRoom);
+            if (response is null) return BadRequest("Error in get room by tag.");
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateRoom(RoomDto dto)
         {
             var response = await _roomService.CreateRoom(dto);
-            if (!response) return BadRequest("Error in create room.");
+            if (response.Equals(Guid.Empty)) return BadRequest("Error in create room.");
             return Created("", response);
         }
         [HttpGet("{id}/stories")]

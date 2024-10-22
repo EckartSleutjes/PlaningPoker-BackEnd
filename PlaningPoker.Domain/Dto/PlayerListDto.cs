@@ -4,6 +4,7 @@
     {
         public string Name { get; set; } = string.Empty;
         public bool CurrentStoriePlayed { get; set; }
+        public Guid? CurrentStorieId { get; set; }
         public string? PokerItemSelected { get; set; } 
     }
 }

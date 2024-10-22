@@ -20,7 +20,7 @@ namespace PlaningPoker.API.Controllers
         public async Task<IActionResult> CreatePlayer(PlayerDto dto)
         {
             var response = await _playerService.CreatePlayer(dto);
-            if (!response) return BadRequest("Error in create player.");
+            if (response.Equals(Guid.Empty)) return BadRequest("Error in create player.");
             return Created("", response);
         }
 

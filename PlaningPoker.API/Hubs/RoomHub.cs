@@ -39,10 +39,11 @@ namespace PlaningPoker.API.Hubs
             await _storiePlayerService.CreateStoriePlayer(dto);
             await EmitCardUpdated(dto.StorieId);
         }
-        public async Task CreatePlayer(PlayerDto dto)
+        public async Task<Guid> CreatePlayer(PlayerDto dto)
         {
-            await _playerService.CreatePlayer(dto);
+            var playerId = await _playerService.CreatePlayer(dto);
             await EmitCardUpdated2(dto.TagRoom);
+            return playerId;
         }
 
         public async Task CreateStorie(StorieDto dto)
