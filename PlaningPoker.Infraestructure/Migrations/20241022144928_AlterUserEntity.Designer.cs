@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PlaningPoker.Infraestructure;
@@ -11,9 +12,11 @@ using PlaningPoker.Infraestructure;
 namespace PlaningPoker.Infraestructure.Migrations
 {
     [DbContext(typeof(PlaningPokerContext))]
-    partial class PlaningPokerContextModelSnapshot : ModelSnapshot
+    [Migration("20241022144928_AlterUserEntity")]
+    partial class AlterUserEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,9 +222,17 @@ namespace PlaningPoker.Infraestructure.Migrations
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<byte[]>("Password")
+                        .IsRequired()
+                        .HasColumnType("bytea");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()

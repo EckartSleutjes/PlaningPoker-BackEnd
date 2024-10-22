@@ -3,18 +3,24 @@
     public class User : Entity
     {
         private User() { }
-        public User(string name, string lastName, string email, string password, string passwordSalt) 
+        public User(string name, string email, byte[] passwordHash, byte[] passwordSalt) 
         {
             Name = name;
-            LastName = lastName;
             Email = email;
-            Password = password;
+            PasswordHash = passwordHash;
             PasswordSalt = passwordSalt;
         }
-        public string Name { get; private set; }
-        public string LastName { get; private set; }
-        public string Email { get; private set; }
-        public string Password { get; private set; }
-        public string PasswordSalt { get; private set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public byte[] PasswordSalt { get; private set; }
+        public byte[] PasswordHash { get; private set; }
+        public bool? IsDeleted { get; set; }
+        public DateTime? DeletedDate { get; set; }
+
+        public void Delete()
+        {
+            DeletedDate = DateTime.Now;
+            IsDeleted = true;
+        }
     }
 }
