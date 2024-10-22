@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlaningPoker.Application.Contract;
 using PlaningPoker.Domain.Dto;
@@ -21,7 +20,7 @@ namespace PlaningPoker.API.Controllers
         public async Task<IActionResult> PostAsync([FromBody] AddOrUpdateUserDto request)
         {
             var id = await _authenticationService.AddAsync(request);
-            return Created(new Uri($"http://{id}"), new object());
+            return Created(new Uri($"https://{id}"), new object());
         }
 
         [HttpPut("{registration}")]

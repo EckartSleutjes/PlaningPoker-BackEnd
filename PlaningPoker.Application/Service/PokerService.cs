@@ -6,7 +6,6 @@ namespace PlaningPoker.Application.Service
 {
     public class PokerService (IPokerRepository _pokerRepository) : IPokerService
     {
-        // TODO Create unit test for method
         public async Task<bool> CreatePoker(PokerDto dto)
         {
             try
@@ -19,7 +18,6 @@ namespace PlaningPoker.Application.Service
                 return false;
             }
         }
-        // TODO Create unit test for method
         public async Task<List<PokerItem>> GetPokerItemsByPokerId(Guid pokerId)
         {
             return await _pokerRepository.GetPokerItemsByPokerId(pokerId);
