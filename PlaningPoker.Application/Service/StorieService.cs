@@ -6,7 +6,7 @@ namespace PlaningPoker.Application.Service
 {
     public class StorieService(IStorieRepository _storieRepository, IRoomService _roomService) : IStorieService
     {
-        public async Task<bool> CreateStorie(StorieDto storie)
+        public async Task<bool> CreateStorie(StorieDto storie, Guid? userId = null)
         {
             try
             {
@@ -23,6 +23,8 @@ namespace PlaningPoker.Application.Service
                 }
                 var storieModel = (Storie)storie;
                 storieModel.SetRoomId(room.Id);
+                if (userId != null)
+                    storieModel.SetUserId((Guid)userId);
                 await _storieRepository.CreateStorie(storieModel);
                 return true;
             }

@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlaningPoker.Application.Contract;
 using PlaningPoker.Domain.Dto;
+using System.Security.Claims;
 
 namespace PlaningPoker.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class RoomController(IRoomService _roomService, IStorieService _storieService) : ControllerBase
     {
 
@@ -28,9 +28,11 @@ namespace PlaningPoker.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateRoom(RoomDto dto)
         {
-            var response = await _roomService.CreateRoom(dto);
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(t => t.Type == ClaimTypes.NameIdentifier)?.Value ?? "");
+            var response = await _roomService.CreateRoom(dto, userId);
             if (response.Equals(Guid.Empty)) return BadRequest("Error in create room.");
             return Created("", response);
         }

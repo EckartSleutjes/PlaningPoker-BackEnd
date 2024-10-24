@@ -43,7 +43,7 @@ namespace PlaningPoker.API.Controllers
         public async Task<IActionResult> LoginAsync([FromBody] LoginDto request)
         {
             var token = await _authenticationService.LoginAsync(request);
-            return Ok(token);
+            return Ok(new { token });
         }
     }
 }

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlaningPoker.Application.Contract;
 using PlaningPoker.Domain.Dto;
@@ -7,7 +6,6 @@ namespace PlaningPoker.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class PlayerController(IPlayerService _playerService) : ControllerBase
     {
         [HttpGet("{id}")]

@@ -3,13 +3,12 @@
     public class Room : Entity
     {
         private Room() { }
-        public Room(string name, Guid createdBy, string? description = null, string? password = null)
+        public Room(string name, string? description = null, string? password = null)
         {
             Tag = Guid.NewGuid().ToString().Split('-')[0];
             Name = name;
             Description = description;
             Password = password;
-            CreatedBy = createdBy;
         }
         public string Tag { get; private set; }
         public string Name { get; private set; }
@@ -20,6 +19,10 @@
         public void SetPokerItems(List<string> pokerItems)
         {
             PokerItems = string.Join(',', pokerItems);
+        }
+        public void SetUserId(Guid userId)
+        {
+            CreatedBy = userId;
         }
     }
 }

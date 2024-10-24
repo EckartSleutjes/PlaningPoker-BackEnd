@@ -34,7 +34,7 @@ namespace PlaningPoker.Application.Tests
         {
             // Arrange
             var storieDto = new StorieDto { TagRoom = "RoomTag" };
-            var room = new Room("RoomTest", Guid.NewGuid());
+            var room = new Room("RoomTest");
 
             var roomServiceMock = new Mock<IRoomService>();
             roomServiceMock.Setup(r => r.GetRoomByTag(storieDto.TagRoom)).ReturnsAsync(room);
@@ -139,7 +139,7 @@ namespace PlaningPoker.Application.Tests
             var roomId = Guid.NewGuid();
 
             var storieRepositoryMock = new Mock<IStorieRepository>();
-            storieRepositoryMock.Setup(s => s.GetStoriesByRoomId(roomId, null)).ReturnsAsync(new List<Storie>());
+            storieRepositoryMock.Setup(s => s.GetStoriesByRoomId(roomId, null)).ReturnsAsync([]);
 
             var storieService = new StorieService(storieRepositoryMock.Object, null!);
 

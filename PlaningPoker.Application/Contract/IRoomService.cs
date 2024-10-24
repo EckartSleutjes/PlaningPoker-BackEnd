@@ -8,6 +8,6 @@ namespace PlaningPoker.Application.Contract
         Task<Room?> GetRoomByPlayerId (Guid playerId);
         Task<Room?> GetRoomById (Guid roomId);
         Task<Room?> GetRoomByTag (string tag);
-        Task<CreateRoomResponseDto> CreateRoom (RoomDto room);
+        Task<CreateRoomResponseDto> CreateRoom (RoomDto room, Guid userId);
     }
 }

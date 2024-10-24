@@ -22,5 +22,9 @@ namespace PlaningPoker.Domain.Entity
         {
             RoomId = roomId;
         }
+        public void SetUserId(Guid userId)
+        {
+            CreatedBy = userId;
+        }
     }
 }

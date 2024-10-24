@@ -4,13 +4,14 @@ using PlaningPoker.Domain.Entity;
 
 namespace PlaningPoker.Application.Service
 {
-    public class RoomService (IRoomRepository _roomRepository, IPokerService _pokerService, IPlayerService _playerService) : IRoomService
+    public class RoomService (IRoomRepository _roomRepository, IPokerService _pokerService, IPlayerService _playerService, IAuthenticationService _authenticationService) : IRoomService
     {
-        public async Task<CreateRoomResponseDto> CreateRoom(RoomDto room)
+        public async Task<CreateRoomResponseDto> CreateRoom(RoomDto room, Guid userId)
         {
             try
             {
                 var roomModel = (Room)room;
+                roomModel.SetUserId(userId);
                 if (room.PokerId is null)
                 {
                     if (room.PokerItems is null)
@@ -24,8 +25,8 @@ namespace PlaningPoker.Application.Service
                 }
 
                 await _roomRepository.CreateRoom(roomModel);
-                //TODO Create player with user datas
-                var playerId = await _playerService.CreatePlayer(new PlayerDto { Email = "owner@gmail.com", Name = "Owner", TagRoom = roomModel.Tag });
+                var user = await _authenticationService.FindAsync(userId);
+                var playerId = await _playerService.CreatePlayer(new PlayerDto { Email = user.Email, Name = user.Username, TagRoom = roomModel.Tag });
                 return new CreateRoomResponseDto { TagRoom = roomModel.Tag, PlayerId = playerId };
             }           
             catch (Exception ex)

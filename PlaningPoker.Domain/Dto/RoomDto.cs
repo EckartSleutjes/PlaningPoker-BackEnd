@@ -9,7 +9,6 @@ namespace PlaningPoker.Domain.Dto
         [MinLength(1)]
         [MaxLength(200)]
         public string Name { get; set; } = null!;
-        public Guid UserId { get; set; }
         public string? Description { get; set; }
         public string? Password { get; set; }
         public Guid? PokerId { get; set; }
@@ -17,7 +16,7 @@ namespace PlaningPoker.Domain.Dto
 
         public static explicit operator Room (RoomDto dto)
         {
-            return new Room(dto.Name, dto.UserId, dto.Description, dto.Password);
+            return new Room(dto.Name, dto.Description, dto.Password);
         }
     }
 }
