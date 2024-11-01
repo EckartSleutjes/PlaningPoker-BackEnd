@@ -8,10 +8,10 @@ namespace PlaningPoker.API.Controllers
     [Route("[controller]")]
     public class AuthenticationController(IAuthenticationService _authenticationService) : ControllerBase
     {
-        [HttpGet("{registration}")]
-        public async Task<IActionResult> GetByIdAsync(Guid registration)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(Guid id)
         {
-            var entity = await _authenticationService.FindAsync(registration);
+            var entity = await _authenticationService.FindAsync(id);
             if (entity == null) return NotFound("User not found.");
             return Ok(entity);
         }
@@ -23,18 +23,18 @@ namespace PlaningPoker.API.Controllers
             return Created(new Uri($"https://{id}"), new object());
         }
 
-        [HttpPut("{registration}")]
-        public async Task<IActionResult> UpdateAsync([FromBody] AddOrUpdateUserDto request, Guid registration)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync([FromBody] AddOrUpdateUserDto request, Guid id)
         {
-            var entity = await _authenticationService.UpdateAsync(request, registration);
+            var entity = await _authenticationService.UpdateAsync(request, id);
             if (entity == null) return BadRequest();
             return NoContent();
         }
 
-        [HttpDelete("{registration}")]
-        public async Task<IActionResult> DeleteAsync(Guid registration)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            var idResult = await _authenticationService.DeleteAsync(registration);
+            var idResult = await _authenticationService.DeleteAsync(id);
             if (idResult == null) return BadRequest();
             return Ok();
         }

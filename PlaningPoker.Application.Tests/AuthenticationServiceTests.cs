@@ -9,7 +9,7 @@ namespace PlaningPoker.Application.Tests
     public class AuthenticationServiceTests
     {
         private readonly AuthenticationService _authenticationService;
-        private readonly Mock<IAuthenticationRepository> _authenticationRepositoryMock = new Mock<IAuthenticationRepository>();
+        private readonly Mock<IAuthenticationRepository> _authenticationRepositoryMock = new();
 
         public AuthenticationServiceTests()
         {
@@ -21,7 +21,7 @@ namespace PlaningPoker.Application.Tests
         {
             // Arrange
             var userId = Guid.NewGuid();
-            var userEntity = new User("username", "email", new byte[0], new byte[0]);
+            var userEntity = new User("username", "email", [], []);
             _authenticationRepositoryMock.Setup(x => x.FindByIdAsync(userId)).ReturnsAsync(userEntity);
 
             // Act
@@ -64,7 +64,7 @@ namespace PlaningPoker.Application.Tests
             // Arrange
             var userId = Guid.NewGuid();
             var userDto = new AddOrUpdateUserDto { Username = "username", Email = "email", Password = "password" };
-            var userEntity = new User("old_username", "old_email", new byte[0], new byte[0]);
+            var userEntity = new User("old_username", "old_email", [], []);
             _authenticationRepositoryMock.Setup(x => x.FindByIdAsync(userId)).ReturnsAsync(userEntity);
 
             // Act
@@ -96,7 +96,7 @@ namespace PlaningPoker.Application.Tests
         {
             // Arrange
             var userId = Guid.NewGuid();
-            var userEntity = new User("username", "email", new byte[0], new byte[0]);
+            var userEntity = new User("username", "email", [], []);
             _authenticationRepositoryMock.Setup(x => x.FindByIdAsync(userId)).ReturnsAsync(userEntity);
 
             // Act

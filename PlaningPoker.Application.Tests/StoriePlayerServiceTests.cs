@@ -13,7 +13,7 @@ namespace PlaningPoker.Application.Tests
         {
             // Arrange
             var storiePlayerDto = new StoriePlayerDto { PlayerId = Guid.NewGuid(), PokerItemSelected = "Item 1", StorieId = Guid.NewGuid() };
-            var room = new Room ("RoomTest", Guid.NewGuid());
+            var room = new Room ("RoomTest");
             room.SetPokerItems(["Item 1,Item 2"]);
             var players = new List<PlayerListDto> { new() { Name = "PlayerTest" , CurrentStoriePlayed = true, CurrentStorieId = storiePlayerDto.StorieId, PokerItemSelected = "Item 1" } };
 
@@ -65,7 +65,7 @@ namespace PlaningPoker.Application.Tests
         {
             // Arrange
             var storiePlayerDto = new StoriePlayerDto { PlayerId = Guid.NewGuid(), PokerItemSelected = "Item 3" };
-            var room = new Room ("RoomTest", Guid.NewGuid());
+            var room = new Room ("RoomTest");
             room.SetPokerItems(["Item 1,Item 2"]);
 
             var roomServiceMock = new Mock<IRoomService>();
@@ -135,7 +135,7 @@ namespace PlaningPoker.Application.Tests
             var storieId = Guid.NewGuid();
 
             var storiePlayerRepositoryMock = new Mock<IStoriePlayerRepository>();
-            storiePlayerRepositoryMock.Setup(s => s.GetStoriePlayersByStorie(storieId)).ReturnsAsync(new List<StoriePlayer>());
+            storiePlayerRepositoryMock.Setup(s => s.GetStoriePlayersByStorie(storieId)).ReturnsAsync([]);
 
             var storiePlayerService = new StoriePlayerService(storiePlayerRepositoryMock.Object, null!, null!, null!);
 

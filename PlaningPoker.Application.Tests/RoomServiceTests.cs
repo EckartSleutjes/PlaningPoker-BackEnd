@@ -18,13 +18,15 @@ namespace PlaningPoker.Application.Tests
             var roomRepositoryMock = new Mock<IRoomRepository>();
             var playerServiceMock = new Mock<IPlayerService>();
             var pokerServiceMock = new Mock<IPokerService>();
+            var authServiceMock = new Mock<IAuthenticationService>();
+
             pokerServiceMock.Setup(p => p.GetPokerItemsByPokerId((Guid)roomDto.PokerId!)).ReturnsAsync(pokerItems);
             playerServiceMock.Setup(p => p.CreatePlayer(It.IsAny<PlayerDto>())).ReturnsAsync(Guid.NewGuid());
 
-            var roomService = new RoomService(roomRepositoryMock.Object, pokerServiceMock.Object, playerServiceMock.Object);
+            var roomService = new RoomService(roomRepositoryMock.Object, pokerServiceMock.Object, playerServiceMock.Object, authServiceMock.Object);
 
             // Act
-            var result = await roomService.CreateRoom(roomDto);
+            var result = await roomService.CreateRoom(roomDto, Guid.NewGuid());
 
             // Assert
             Assert.NotNull(result);
@@ -41,29 +43,31 @@ namespace PlaningPoker.Application.Tests
             var roomRepositoryMock = new Mock<IRoomRepository>();
             var playerServiceMock = new Mock<IPlayerService>();
             var pokerServiceMock = new Mock<IPokerService>();
+            var authServiceMock = new Mock<IAuthenticationService>();
 
-            var roomService = new RoomService(roomRepositoryMock.Object, pokerServiceMock.Object, playerServiceMock.Object);
+            var roomService = new RoomService(roomRepositoryMock.Object, pokerServiceMock.Object, playerServiceMock.Object, authServiceMock.Object);
 
             // Act & Assert
-            Assert.Equal(Guid.Empty, roomService.CreateRoom(roomDto).GetAwaiter().GetResult().PlayerId);
+            Assert.Equal(Guid.Empty, roomService.CreateRoom(roomDto, Guid.NewGuid()).GetAwaiter().GetResult().PlayerId);
         }
 
         [Fact]
         public async Task CreateRoom_ShouldReturnCreateRoomResponseDto_WhenRoomIsCreatedWithoutPokerIdButWithPokerItems()
         {
             // Arrange
-            var roomDto = new RoomDto { PokerItems = new List<string> { "Item 1", "Item 2" } };
+            var roomDto = new RoomDto { PokerItems = ["Item 1", "Item 2"] };
 
             var roomRepositoryMock = new Mock<IRoomRepository>();
             var playerServiceMock = new Mock<IPlayerService>();
+            var authServiceMock = new Mock<IAuthenticationService>();
             playerServiceMock.Setup(p => p.CreatePlayer(It.IsAny<PlayerDto>())).ReturnsAsync(Guid.NewGuid());
 
             var pokerServiceMock = new Mock<IPokerService>();
 
-            var roomService = new RoomService(roomRepositoryMock.Object, pokerServiceMock.Object, playerServiceMock.Object);
+            var roomService = new RoomService(roomRepositoryMock.Object, pokerServiceMock.Object, playerServiceMock.Object, authServiceMock.Object);
 
             // Act
-            var result = await roomService.CreateRoom(roomDto);
+            var result = await roomService.CreateRoom(roomDto, Guid.NewGuid());
 
             // Assert
             Assert.NotNull(result);
@@ -76,12 +80,12 @@ namespace PlaningPoker.Application.Tests
         public async Task GetRoomById_ShouldReturnRoom_WhenRoomExists()
         {
             // Arrange
-            var room = new Room("RoomTest", Guid.NewGuid());
+            var room = new Room("RoomTest");
 
             var roomRepositoryMock = new Mock<IRoomRepository>();
             roomRepositoryMock.Setup(r => r.GetRoomById(room.Id)).ReturnsAsync(room);
 
-            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!);
+            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!, null!);
 
             // Act
             var result = await roomService.GetRoomById(room.Id);
@@ -101,7 +105,7 @@ namespace PlaningPoker.Application.Tests
             var roomRepositoryMock = new Mock<IRoomRepository>();
             roomRepositoryMock.Setup(r => r.GetRoomById(roomId)).ReturnsAsync((Room?)null);
 
-            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!);
+            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!, null!);
 
             // Act
             var result = await roomService.GetRoomById(roomId);
@@ -116,12 +120,12 @@ namespace PlaningPoker.Application.Tests
         {
             // Arrange
             var playerId = Guid.NewGuid();
-            var room = new Room("RoomTest", Guid.NewGuid());
+            var room = new Room("RoomTest");
 
             var roomRepositoryMock = new Mock<IRoomRepository>();
             roomRepositoryMock.Setup(r => r.GetRoomByPlayerId(playerId)).ReturnsAsync(room);
 
-            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!);
+            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!, null!);
 
             // Act
             var result = await roomService.GetRoomByPlayerId(playerId);
@@ -141,7 +145,7 @@ namespace PlaningPoker.Application.Tests
             var roomRepositoryMock = new Mock<IRoomRepository>();
             roomRepositoryMock.Setup(r => r.GetRoomByPlayerId(playerId)).ReturnsAsync((Room?)null);
 
-            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!);
+            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!, null!);
 
             // Act
             var result = await roomService.GetRoomByPlayerId(playerId);
@@ -154,12 +158,12 @@ namespace PlaningPoker.Application.Tests
         public async Task GetRoomByTag_ShouldReturnRoom_WhenRoomExistsForTag()
         {
             // Arrange
-            var room = new Room("RoomTest", Guid.NewGuid());
+            var room = new Room("RoomTest");
 
             var roomRepositoryMock = new Mock<IRoomRepository>();
             roomRepositoryMock.Setup(r => r.GetRoomByTag(room.Tag)).ReturnsAsync(room);
 
-            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!);
+            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!, null!);
 
             // Act
             var result = await roomService.GetRoomByTag(room.Tag);
@@ -179,7 +183,7 @@ namespace PlaningPoker.Application.Tests
             var roomRepositoryMock = new Mock<IRoomRepository>();
             roomRepositoryMock.Setup(r => r.GetRoomByTag(tag)).ReturnsAsync((Room?)null);
 
-            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!);
+            var roomService = new RoomService(roomRepositoryMock.Object, null!, null!, null!);
 
             // Act
             var result = await roomService.GetRoomByTag(tag);

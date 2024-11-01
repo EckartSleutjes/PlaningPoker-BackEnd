@@ -12,7 +12,7 @@ namespace PlaningPoker.Application.Tests
         public async Task CreatePlayer_ShouldReturnPlayerId_WhenRoomExists()
         {
             // Arrange
-            var room = new Room ("RoomTest",Guid.NewGuid());
+            var room = new Room ("RoomTest");
             var playerDto = new PlayerDto { Name = "John", TagRoom = room.Tag };
 
             var roomRepositoryMock = new Mock<IRoomRepository>();
@@ -116,7 +116,7 @@ namespace PlaningPoker.Application.Tests
             var roomId = Guid.NewGuid();
 
             var playerRepositoryMock = new Mock<IPlayerRepository>();
-            playerRepositoryMock.Setup(p => p.GetPlayersByRoomId(roomId)).ReturnsAsync(new List<Player>());
+            playerRepositoryMock.Setup(p => p.GetPlayersByRoomId(roomId)).ReturnsAsync([]);
 
             var playerService = new PlayerService(playerRepositoryMock.Object, Mock.Of<IRoomRepository>());
 
