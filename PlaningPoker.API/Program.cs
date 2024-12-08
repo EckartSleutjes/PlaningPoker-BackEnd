@@ -67,7 +67,7 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddDbContext<PlaningPokerContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.AddGraphQL().AddQueryType<Query>().AddMutationType<MutationType>();
 var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -80,5 +80,6 @@ app.MapHub<RoomHub>("/roomHub");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.MapGraphQL("/graphql");
 app.UseCors(MyAllowSpecificOrigins);
-await app.RunAsync();
+await app.RunWithGraphQLCommandsAsync(args);
